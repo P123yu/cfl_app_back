@@ -1,0 +1,308 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>CFL Confirmation Due</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Arial', sans-serif;-->
+<!--            line-height: 1.6;-->
+<!--            background-color: #f4f4f4; /* Light background color for contrast */-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--        }-->
+
+<!--        .email-container {-->
+<!--            background-color: #ffffff; /* White background for the email */-->
+<!--            border-radius: 8px; /* Rounded corners */-->
+<!--            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */-->
+<!--            max-width: 650px; /* Increased max width */-->
+<!--            margin: 40px auto; /* Centered email with space around */-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        .email-header {-->
+<!--            background-color: blue; /* Green header background */-->
+<!--            padding: 25px;-->
+<!--            text-align: center;-->
+<!--            color: white;-->
+<!--            border-radius: 8px 8px 0 0; /* Rounded top corners */-->
+<!--        }-->
+
+<!--        .email-header h2 {-->
+<!--            margin: 0;-->
+<!--            font-size: 26px; /* Larger font size */-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        .email-body {-->
+<!--            padding: 20px;-->
+<!--            color: #333333;-->
+<!--            font-size: 16px;-->
+<!--        }-->
+
+<!--        .email-body p {-->
+<!--            margin: 12px 0;-->
+<!--        }-->
+
+<!--        .button-container {-->
+<!--            text-align: center; /* Centering the buttons */-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        .email-footer {-->
+<!--            margin-top: 30px;-->
+<!--            text-align: center;-->
+<!--            font-size: 14px;-->
+<!--            color: #777777;-->
+<!--            border-top: 1px solid #e0e0e0;-->
+<!--            padding-top: 20px;-->
+<!--        }-->
+
+<!--        .btn {-->
+<!--            display: inline-block;-->
+<!--            padding: 12px 24px;-->
+<!--            margin: 10px 5px;-->
+<!--            font-size: 16px;-->
+<!--            color: white;-->
+<!--            text-decoration: none;-->
+<!--            border-radius: 8px; /* More rounded buttons */-->
+<!--            font-weight: bold;-->
+<!--            transition: all 0.3s ease; /* Smooth transition for hover effect */-->
+<!--        }-->
+
+<!--        .btn-accept {-->
+<!--            background-color: #4CAF50; /* Green for Accept */-->
+<!--        }-->
+
+<!--        .btn-extend {-->
+<!--            background-color: #FF0000; /* Red for Extend */-->
+<!--        }-->
+
+<!--        .btn:hover {-->
+<!--            opacity: 0.9; /* Slight fade effect on hover */-->
+<!--            transform: translateY(-2px); /* Subtle lift on hover */-->
+<!--        }-->
+
+<!--        a {-->
+<!--            color: #4CAF50; /* Link color */-->
+<!--            text-decoration: none;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        @media screen and (max-width: 600px) {-->
+<!--            .email-container {-->
+<!--                width: 90%; /* Reduced width for smaller screens */-->
+<!--                padding: 15px;-->
+<!--            }-->
+
+<!--            .email-header h2 {-->
+<!--                font-size: 20px; /* Smaller header font on small screens */-->
+<!--            }-->
+
+<!--            .btn {-->
+<!--                width: 100%; /* Full-width buttons on small screens */-->
+<!--                padding: 12px;-->
+<!--            }-->
+
+<!--            .email-body {-->
+<!--                font-size: 14px; /* Slightly smaller text on mobile */-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="email-container">-->
+<!--    <div class="email-header">-->
+<!--        <h2>CFL Probation Confirmation Discussion</h2>-->
+<!--        <span th:text="${subject}"></span>-->
+<!--    </div>-->
+<!--    <div class="email-body">-->
+<!--        <p>Dear <strong><span th:text="${managerName}"></span></strong>,</p>-->
+<!--        <p>We would like to inform you that CFL <strong><span th:text="${cflName}"></span></strong> is nearing the end of their probation period.</p>-->
+<!--        <p>CFL Email: <strong><span th:text="${cflEmail}"></span></strong></p>-->
+<!--        <p>HR Email: <strong><span th:text="${hrEmail}"></span></strong></p>-->
+<!--        <br/>-->
+<!--        <p>Please click below to schedule the discussion:</p>-->
+
+<!--        &lt;!&ndash; Button container to center the buttons &ndash;&gt;-->
+<!--        <div class="button-container">-->
+<!--            &lt;!&ndash; Yes Button &ndash;&gt;-->
+<!--            <a th:href="@{'http://localhost:9048/cfl/manager/probation/accept/' + ${cflEmail}}" class="btn btn-accept">Accept</a>-->
+<!--&lt;!&ndash;            <a th:href="@{'http://localhost:8080/cfl/manager/probation/accept/' + ${cflEmail}}" class="btn btn-accept">Accept</a>&ndash;&gt;-->
+
+
+<!--            &lt;!&ndash; No Button &ndash;&gt;-->
+<!--            <a th:href="@{'http://localhost:9048/cfl/manager/probation/extend/' + ${cflEmail}}" class="btn btn-extend">Extend</a>-->
+<!--&lt;!&ndash;            <a th:href="@{'http://localhost:8080/cfl/manager/probation/extend/' + ${cflEmail}}" class="btn btn-extend">Extend</a>&ndash;&gt;-->
+
+<!--        </div>-->
+
+<!--        <p>Link to Schedule Event: <a th:href="${link}" th:text="${link}"></a></p>-->
+<!--        <p>Best Regards,<br/><strong>Human Resource Department</strong></p>-->
+<!--    </div>-->
+<!--    <div class="email-footer">-->
+<!--        <p>&copy; CMS COMPUTERS. All rights reserved.</p>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>CFL Confirmation Due</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            background-color: #ffffff;
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .email-header {
+            background-color: blue;
+            padding: 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .email-header h2 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .email-body {
+            padding: 20px;
+            color: #333333;
+            font-size: 16px;
+        }
+
+        .email-footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #777777;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 20px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px 5px;
+            font-size: 16px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .btn-accept {
+            background-color: #4CAF50;
+        }
+
+        .btn-extend {
+            background-color: #FF0000;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .email-header h2 {
+                font-size: 20px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px;
+            }
+
+            .email-body {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h2>CFL Probation Confirmation Discussion</h2>
+            <span th:text="${subject}"></span>
+        </div>
+        <div class="email-body">
+            <p>Dear <strong><span th:text="${managerName}"></span></strong>,</p>
+            <p>We would like to inform you that the confirmation due date of CFL <strong><span
+                        th:text="${cflName}"></span></strong> was due on 4 feb 2025 and now it has aged by <strong><span
+                        th:text="${agedDay}"> </span></strong> days. you are requested to take immediate action by
+                clicking on accept button to schedule probation confirmation discussion.</p>
+            <p>CFL Email: <strong><span th:text="${cflEmail}"></span></strong></p>
+            <p>HR Email: <strong><span th:text="${hrEmail}"></span></strong></p>
+            <br />
+            <p>Please click below to schedule the discussion:</p>
+
+
+
+            <!-- Button container to center the buttons -->
+            <div class="button-container">
+                <a th:href="@{'http://localhost:9048/cfl/manager/probation/accept/' + ${cflEmail}}"
+                    style="background-color: #4CAF50; padding: 12px 24px; margin: 10px 5px; font-size: 16px; color: white; text-decoration: none; font-weight: bold; border-radius: 8px;">
+                    Accept
+                </a>
+
+                <!--            <a th:href="@{'http://localhost:8080/cfl/manager/probation/accept/' + ${cflEmail}}"-->
+                <!--               style="background-color: #4CAF50; padding: 12px 24px; margin: 10px 5px; font-size: 16px; color: white; text-decoration: none; font-weight: bold; border-radius: 8px;">-->
+                <!--                Accept-->
+                <!--            </a>-->
+
+
+
+                <!-- Extend Button -->
+                <a th:href="@{'http://localhost:9048/cfl/manager/probation/extend/' + ${cflEmail}}"
+                    style="background-color: #FF0000; padding: 12px 24px; margin: 10px 5px; font-size: 16px; color: white; text-decoration: none; font-weight: bold; border-radius: 8px;">
+                    Extend
+                </a>
+            </div>
+
+            <!--        <p>Link to Schedule Event: <a th:href="${link}" th:text="${link}"></a></p>-->
+            <p>Best Regards,<br /><strong>Human Resource Department</strong></p>
+        </div>
+        <div class="email-footer">
+            <p>&copy; CMS COMPUTERS. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

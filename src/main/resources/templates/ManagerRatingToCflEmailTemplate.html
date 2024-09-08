@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Regarding Quarterly Rating</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 25px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #0056b3;
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .highlight {
+            background-color: #f1f7fc;
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            margin-top: 30px;
+        }
+
+        a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .footer {
+                font-size: 12px;
+                padding-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Regarding CFL Quarterly Rating</h1>
+
+    <p>Dear CFL <span th:text="${cflName}"></span>,</p>
+
+    <p>We would like to inform you of your Quarter <span th:text="${quarter}"></span> ratings as assessed by your manager:</p>
+
+    <div class="highlight">
+        <p><strong>Potential Rating:</strong> <span th:text="${potential}"></span> (out of 3)</p>
+        <p><strong>Performance Rating:</strong> <span th:text="${performance}"></span> (out of 3)</p>
+        <p><strong>Talent Pool:</strong> <span th:text="${talent}"></span></p>
+    </div>
+
+    <p>Best regards,</p>
+    <p><span th:text="${mgrName}"></span></p>
+
+    <div class="footer">
+        <p>&copy; CMS Computers. All rights reserved.</p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Regarding Exit Request Acceptance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9; /* Light background for contrast */
+            margin: 0;
+            padding: 20px;
+        }
+
+        .email-container {
+            background-color: #ffffff;
+            padding: 30px;
+            max-width: 650px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        .email-header {
+            background-color: blue; /* Blue background */
+            color: white;
+            padding: 25px;
+            border-radius: 10px 10px 0 0; /* Rounded top corners */
+            text-align: center;
+        }
+
+        .email-header h2 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .email-body {
+            padding: 20px;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .email-body p {
+            margin-bottom: 20px;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #4CAF50; /* Green background for the header */
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #f9f9f9; /* Light grey for alternating rows */
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f1f1f1; /* Light alternating color for even rows */
+        }
+
+        tr:hover td {
+            background-color: #e8f5e9; /* Light green hover effect */
+        }
+
+        .email-footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #777777;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 20px;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Responsive styling for small screens */
+        @media screen and (max-width: 600px) {
+            .email-container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            .email-header h2 {
+                font-size: 22px; /* Adjusted font size */
+            }
+
+            .email-body {
+                font-size: 14px; /* Slightly smaller text for mobile */
+            }
+
+            table {
+                font-size: 14px; /* Adjust table text size on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="email-header">
+        <h2>Regarding Exit Request Acceptance</h2>
+    </div>
+    <div class="email-body">
+        <p>Dear <span th:text="${mgrName}"></span>,</p>
+        <p>This email is to notify that you have accepted the exit / resignation request of <span th:text="${cflName}"></span> on <span th:text="${date}"></span> .</p>
+
+        <!-- Styled Table -->
+        <table>
+            <tr>
+                <th>Resignation Date:</th>
+                <td><span th:text="${date}"></span></td>
+            </tr>
+            <tr>
+                <th>Relieving Date:</th>
+                <td><span th:text="${relievingFormattedDate}"></span></td>
+            </tr>
+        </table>
+
+        <p>Best Regards,<br/><strong>Human Resource Department</strong></p>
+    </div>
+    <div class="email-footer">
+        <p>&copy; CMS COMPUTERS. All rights reserved.</p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your OTP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #0056b3;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .otp-container {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50; /* OTP in green for visibility */
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 90%; /* Reduced width for mobile devices */
+            }
+
+            h1 {
+                font-size: 24px; /* Adjusted header size for small screens */
+            }
+
+            .otp-container {
+                font-size: 20px; /* Slightly smaller OTP on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>OTP For Forgot Password</h1>
+    <p>Dear <strong><span th:text="${cflName}"></span></strong>,</p>
+    <p>Your OTP to reset your password is as follows:</p>
+
+    <div class="otp-container">
+        <span th:text="${otp}"></span>
+    </div>
+
+    <p>If you did not request a password reset, please ignore this email.</p>
+
+    <p>Best regards,<br/>CFL Team</p>
+
+    <div class="footer">
+        <p>&copy; CMS Computers. All rights reserved.</p>
+        <p><a href="https://www.cms.co.in/">Visit our website</a></p>
+    </div>
+</div>
+</body>
+</html>

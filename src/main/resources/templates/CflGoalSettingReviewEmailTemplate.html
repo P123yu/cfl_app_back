@@ -1,0 +1,236 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Goal Setting Request</title>-->
+<!--    <style>-->
+<!--        .email-container {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            line-height: 1.6;-->
+<!--            color: #333333;-->
+<!--        }-->
+<!--        .email-header {-->
+<!--            background-color: #4CAF50;-->
+<!--            padding: 20px;-->
+<!--            text-align: center;-->
+<!--            color: white;-->
+<!--        }-->
+<!--        .email-body {-->
+<!--            padding: 20px;-->
+<!--        }-->
+<!--        .email-footer {-->
+<!--            margin-top: 30px;-->
+<!--            text-align: center;-->
+<!--            font-size: 12px;-->
+<!--            color: #777777;-->
+<!--        }-->
+<!--        .btn {-->
+<!--            display: inline-block;-->
+<!--            padding: 10px 20px;-->
+<!--            margin: 10px 5px;-->
+<!--            font-size: 16px;-->
+<!--            color: white;-->
+<!--            text-decoration: none;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+<!--        .btn-accept {-->
+<!--            background-color: #4CAF50; /* Green */-->
+<!--        }-->
+<!--        .btn-extend {-->
+<!--            background-color: #FF0000; /* Red */-->
+<!--        }-->
+<!--        a {-->
+<!--            color: #4CAF50;-->
+<!--            text-decoration: none;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="email-container">-->
+<!--    <div class="email-header">-->
+<!--        <h2>CFL Performance Review</h2>-->
+<!--        <span th:text="${subject}"></span>-->
+<!--    </div>-->
+<!--    <div class="email-body">-->
+<!--        <p>Dear Manager <span th:text="${mgrName}"></span>,</p>-->
+<!--        It's time to review the <span th:text="${times}"></span> 30-60-90 days <span th:text="${quarter}"></span> performance for the CFLs in your team.-->
+<!--        Timely reviewing of goals provides clarity on the expectations, gaps identified,-->
+<!--        encourages accountability, and prioritization, boosts improved communication and builds-->
+<!--        transparency.-->
+<!--        This process ensures effective progress tracking,  enhances performance, and fosters motivation.-->
+
+<!--        <br/>-->
+<!--        <p><strong>CFL Name:</strong> <span th:text="${cflName}"></span></p>-->
+
+<!--        <br/>-->
+<!--        Hurry up!, click on the below link to schedule the first 30-60-90 days (Quarter)-->
+<!--        performance review discussion-->
+<!--        with your CFL.-->
+<!--        <br/>-->
+<!--        <a th:href="@{'http://localhost:8080/cfl/managerReview/accept/' + ${cflEmail}}" class="btn btn-accept">Accept</a>-->
+<!--        <a th:href="@{'http://localhost:8080/cfl/managerReview/extend/' + ${cflEmail}}" class="btn btn-extend">Extend</a>-->
+<!--        <p>Calendly Link to Schedule Event: <a th:href="${link}" th:text="${link}"></a></p>-->
+<!--        <p>Best Regards,<br/>Human Resources Department</p>-->
+<!--    </div>-->
+<!--    <div class="email-footer">-->
+<!--        <p>&copy; CMS COMPUTERS . All rights reserved.</p>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Goal Setting Request</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fc;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            font-size: 16px;
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            padding: 50px;
+            text-align: center;
+            color: white;
+            font-size: 26px;
+            font-weight: bold;
+            border-bottom: 5px solid #387c39;
+        }
+
+        .email-body {
+            padding: 30px;
+            color: #333;
+            line-height: 1.6;
+            background-color: #fafafa;
+        }
+
+        .highlight {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 15px 5px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-accept {
+            background-color: #4CAF50;
+            /* Green */
+        }
+
+        .btn-extend {
+            background-color: #FF5733;
+            /* Red */
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-5px);
+        }
+
+        .email-footer {
+            background-color: #f7f7f7;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            border-top: 1px solid #ddd;
+        }
+
+        .email-footer a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            .email-container {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .email-header {
+                font-size: 22px;
+            }
+
+            .email-body {
+                padding: 20px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            CFL Performance Review
+        </div>
+        <div class="email-body">
+            <p>Dear Manager <span class="highlight" th:text="${mgrName}"></span>,</p>
+            <p>It's time to review the <span class="highlight" th:text="${times}"></span> 30-60-90 days <span
+                    class="highlight" th:text="${quarter}"></span> performance for the CFLs in your team.</p>
+            <p>Timely reviewing of goals provides clarity on expectations, helps identify gaps, encourages
+                accountability, improves communication, and promotes transparency.</p>
+            <p>This process ensures effective progress tracking, enhances performance, and fosters motivation.</p>
+
+            <p><strong>CFL Name:</strong> <span class="highlight" th:text="${cflName}"></span></p>
+
+            <p>Hurry up! Click on the buttons below to schedule the first 30-60-90 days (Quarter) performance review
+                discussion with your CFL.</p>
+
+            <!-- Centering the Buttons -->
+            <div style="text-align: center;">
+                <!-- Accept Button with Inline Styles -->
+                <a th:href="@{'http://localhost:9048/cfl/managerReview/accept/' + ${cflEmail}}"
+                    style="background-color: #4CAF50; color: white; padding: 14px 30px; font-size: 18px; text-decoration: none; border-radius: 8px; margin: 15px 5px; display: inline-block; text-align: center;">
+                    Accept
+                </a>
+
+                <!-- Extend Button with Inline Styles -->
+                <a th:href="@{'http://localhost:9048/cfl/managerReview/extend/' + ${cflEmail}}"
+                    style="background-color: #FF5733; color: white; padding: 14px 30px; font-size: 18px; text-decoration: none; border-radius: 8px; margin: 15px 5px; display: inline-block; text-align: center;">
+                    Extend
+                </a>
+            </div>
+
+            <!--        <p>Calendly Link to Schedule Event: <a th:href="${link}" th:text="${link}"></a></p>-->
+
+            <p>Best Regards,<br />Human Resources Department</p>
+        </div>
+        <div class="email-footer">
+            <p>&copy; CMS COMPUTERS. All rights reserved. <br /> <a href="https://www.cms.co.in/">visit</a></p>
+        </div>
+    </div>
+</body>
+
+</html>

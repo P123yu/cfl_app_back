@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Annual Appraisal Answer Review</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            max-width: 650px;
+            margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #004a99;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        .qa-block {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9fbff;
+            border: 1px solid #d6e2f1;
+            border-radius: 8px;
+        }
+
+        .qa-item {
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #cbd6e2;
+        }
+
+        .qa-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .question {
+            font-weight: bold;
+            color: #2e3b4e;
+            margin-bottom: 6px;
+        }
+
+        .answer {
+            margin-left: 15px;
+            color: #333;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 13px;
+            color: #777;
+            margin-top: 35px;
+        }
+
+        a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p, .question, .answer {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Annual Appraisal Review</h1>
+
+    <p>Dear <span th:text="${hrName}"></span>,</p>
+
+    <p>We would like to inform you that the annual appraisal responses for <strong><span th:text="${cflName}"></span></strong> have been submitted by the reporting manager.</p>
+
+    <div class="qa-block">
+        <div class="qa-item">
+            <div class="question">Question 1:</div>
+            <div class="answer"><span th:text="${ans1}"></span></div>
+        </div>
+        <div class="qa-item">
+            <div class="question">Question 2:</div>
+            <div class="answer"><span th:text="${ans2}"></span></div>
+        </div>
+        <div class="qa-item">
+            <div class="question">Question 3:</div>
+            <div class="answer"><span th:text="${ans3}"></span></div>
+        </div>
+        <div class="qa-item">
+            <div class="question">Question 4:</div>
+            <div class="answer"><span th:text="${ans4}"></span></div>
+        </div>
+        <div class="qa-item">
+            <div class="question">Question 5:</div>
+            <div class="answer"><span th:text="${ans5}"></span></div>
+        </div>
+    </div>
+
+    <p style="margin-top: 30px;">Best regards,</p>
+    <p><strong><span th:text="${mgrName}"></span></strong></p>
+
+    <div class="footer">
+        <p>&copy; CMS Computers. All rights reserved.</p>
+    </div>
+</div>
+</body>
+</html>

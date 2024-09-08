@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Regarding Exit Withdrawal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9; /* Light background for contrast */
+            margin: 0;
+            padding: 20px;
+        }
+
+        .email-container {
+            background-color: #ffffff;
+            padding: 30px;
+            max-width: 650px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        .email-header {
+            background-color: blue; /* Green background */
+            color: white;
+            padding: 25px;
+            border-radius: 10px 10px 0 0; /* Rounded top corners */
+            text-align: center;
+        }
+
+        .email-header h2 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .email-body {
+            padding: 20px;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .email-body p {
+            margin-bottom: 20px;
+        }
+
+        .email-footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #777777;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 20px;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Responsive styling for small screens */
+        @media screen and (max-width: 600px) {
+            .email-container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            .email-header h2 {
+                font-size: 22px; /* Adjusted font size */
+            }
+
+            .email-body {
+                font-size: 14px; /* Slightly smaller text for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="email-header">
+        <h2>Regarding Exit / Resignation Withdrawal</h2>
+    </div>
+    <div class="email-body">
+        <p>Dear <span th:text="${managerName}"></span>,</p>
+        <p>This email is to notify that <span th:text="${cflName}"></span> has withdrawal his exit / resignation request on <span th:text="${date}"></span> .</p>
+        <p>Best Regards,<br/><strong>Human Resource Department</strong></p>
+    </div>
+    <div class="email-footer">
+        <p>&copy; CMS COMPUTERS. All rights reserved.</p>
+    </div>
+</div>
+</body>
+</html>

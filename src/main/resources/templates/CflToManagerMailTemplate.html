@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Regarding Manager-CFL Meeting</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .content {
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            width: 30%;
+            background-color: #f7f7f7;
+        }
+
+        td:last-child {
+            width: 70%;
+        }
+
+        .footer {
+            background-color: #f4f4f4;
+            padding: 10px;
+            text-align: center;
+            border-radius: 0 0 8px 8px;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Center the buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            /* Centers buttons horizontally */
+            gap: 20px;
+            /* Adds space between the buttons */
+            margin-top: 20px;
+        }
+
+        /* Media Queries for responsiveness */
+        @media screen and (max-width: 768px) {
+            .email-container {
+                padding: 15px;
+                margin: 15px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            table td {
+                font-size: 14px;
+            }
+
+            .footer {
+                font-size: 0.8em;
+                padding: 8px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .email-container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            table td {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .footer {
+                font-size: 0.7em;
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Regarding Manager-CFL Meeting</h1>
+        </div>
+        <div class="content">
+            <p><strong>CFL Details:</strong></p>
+            <table>
+                <tr>
+                    <td>CFL Name:</td>
+                    <td><span th:text="${cflName}"></span></td>
+                </tr>
+                <tr>
+                    <td>CFL E-mail Id:</td>
+                    <td><span th:text="${cflEmail}"></span></td>
+                </tr>
+                <tr>
+                    <td>Designation:</td>
+                    <td><span th:text="${cflDesignation}"></span></td>
+                </tr>
+                <tr>
+                    <td>Department:</td>
+                    <td><span th:text="${cflDepartment}"></span></td>
+                </tr>
+                <tr>
+                    <td>Location:</td>
+                    <td><span th:text="${cflLocation}"></span></td>
+                </tr>
+                <tr>
+                    <td>Reporting Manager:</td>
+                    <td><span th:text="${reportingManager}"></span></td>
+                </tr>
+                <tr th:if="${meetingDate != null}">
+                    <td>Requested Date:</td>
+                    <td><span th:text="${meetingDate}"></span></td>
+                </tr>
+                <tr th:if="${meetingTime != null}">
+                    <td>Requested Time:</td>
+                    <td><span th:text="${meetingTime}"></span></td>
+                </tr>
+            </table>
+            <strong>Dear <span th:text="${reportingManager}"></span></strong>
+            <p th:text="${body}">[Body Content]</p>
+
+            <!-- Centered Accept and Extend Buttons with Inline Styles -->
+            <div class="button-container">
+                <a th:href="@{'http://localhost:9048/cfl/accept/' + ${cflEmail} + '/' + ${type} + '?date=' + ${meetingDate} + '&amp;time=' + ${meetingTime}}"
+                    style="display: inline-block; padding: 12px 24px; color: #007BFF; background-color: white; text-decoration: none; border: 2px solid #007BFF; border-radius: 5px; font-size: 16px; text-align: center;">
+                    Accept
+                </a>
+                <a th:href="@{'http://localhost:9048/cfl/extend/' + ${cflEmail} + '/' + ${type}}"
+                    style="display: inline-block; padding: 12px 24px; color: white; background-color: red; text-decoration: none; border-radius: 5px; font-size: 16px; text-align: center;">
+                    Extend
+                </a>
+            </div>
+
+            <p>Thanks & Regards,</p>
+            <p><span th:text="${cflName}"></span></p>
+        </div>
+        <div class="footer">
+            <p th:text="'&copy; ' + ${year} + ' CMS. All rights reserved.'"></p>
+        </div>
+    </div>
+</body>
+
+</html>

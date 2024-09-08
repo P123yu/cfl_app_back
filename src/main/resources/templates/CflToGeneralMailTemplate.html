@@ -1,0 +1,638 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Regarding Meeting</title>-->
+<!--    <style>-->
+<!--        .email-container {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            color: #333;-->
+<!--            line-height: 1.6;-->
+<!--            margin: 20px;-->
+<!--            padding: 20px;-->
+<!--            border-radius: 8px;-->
+<!--        }-->
+<!--        .header {-->
+<!--            background-color: #f4f4f4;-->
+<!--            padding: 10px;-->
+<!--            text-align: center;-->
+<!--            border-bottom: 1px solid #ddd;-->
+<!--        }-->
+<!--        .content {-->
+<!--            margin: 20px 0;-->
+<!--        }-->
+<!--        .footer {-->
+<!--            background-color: #f4f4f4;-->
+<!--            padding: 10px;-->
+<!--            text-align: center;-->
+<!--            border-top: 1px solid #ddd;-->
+<!--            font-size: 0.8em;-->
+<!--            color: #666;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--            margin: 20px 0;-->
+<!--        }-->
+<!--        td {-->
+<!--            padding: 8px;-->
+<!--            border: 1px solid #ddd;-->
+<!--        }-->
+<!--        td:first-child {-->
+<!--            font-weight: bold;-->
+<!--        }-->
+<!--        .button-container {-->
+<!--            text-align: center;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+<!--        .button {-->
+<!--            display: inline-block;-->
+<!--            padding: 10px 20px;-->
+<!--            color: white;-->
+<!--            background-color: wheat;-->
+<!--            text-decoration: none;-->
+<!--            border-radius: 5px;-->
+<!--            font-size: 16px;-->
+<!--            text-align: center;-->
+<!--            margin: 0 10px; /* Add gap between buttons */-->
+<!--        }-->
+<!--        .button.extend {-->
+<!--            background-color: rgb(197, 200, 205); /* Different color for Extend button */-->
+<!--        }-->
+<!--        .button:hover {-->
+<!--            opacity: 0.9;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="email-container">-->
+<!--    <div class="header">-->
+<!--        <h1>Regarding Meeting </h1>-->
+<!--    </div>-->
+<!--    <div class="content">-->
+<!--        <p>CFL Details</p>-->
+<!--        <table>-->
+<!--            <tr>-->
+<!--                <td>CFL Name:</td>-->
+<!--                <td><span th:text="${cflName}"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>CFL E-Mail-Id:</td>-->
+<!--                <td><span th:text="${cflEmail}"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Designation:</td>-->
+<!--                <td><span th:text="${cflDesignation}"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Department:</td>-->
+<!--                <td><span th:text="${cflDepartment}"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Location:</td>-->
+<!--                <td><span th:text="${cflLocation}"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Reporting Manager:</td>-->
+<!--                <td><span th:text="${reportingManager}"></span></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--        <p>Respected <p th:text="${type}"></p></p>-->
+<!--        <p th:text="${body}">[Body Content]</p>-->
+
+<!--        <div class="button-container">-->
+<!--            <a th:href="@{'http://localhost:8080/cfl/accept/' + ${cflEmail}}" class="button">Accept</a>-->
+<!--            <a th:href="@{'http://localhost:8080/cfl/extend/' + ${cflEmail}}" class="button extend">Extend</a>-->
+<!--        </div>-->
+
+<!--        <p>Calendly Link to Schedule Event: <a th:href="${link}" th:text="${link}"></a></p>-->
+
+<!--        <p>Thanks & Regards</p>-->
+<!--        <p>Human Resource Department <span th:text="${year}"></span></p>-->
+<!--    </div>-->
+<!--    <div class="footer">-->
+<!--        &lt;!&ndash; Correctly displaying the copyright symbol and year &ndash;&gt;-->
+<!--        <p th:text="'&copy; ' + ${year} + ' CMS. All rights reserved.'"></p>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Regarding Meeting</title>-->
+<!--    <style>-->
+<!--        /* General Styling */-->
+<!--        body {-->
+<!--            font-family: 'Arial', sans-serif;-->
+<!--            background-color: #f6f8fa;-->
+<!--            color: #333;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--        }-->
+
+<!--        .email-container {-->
+<!--            width: 80%;-->
+<!--            max-width: 700px;-->
+<!--            margin: 0 auto;-->
+<!--            padding: 20px;-->
+<!--            background-color: #ffffff;-->
+<!--            border-radius: 10px;-->
+<!--            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        .header {-->
+<!--            background-color: #4A90E2;-->
+<!--            padding: 20px;-->
+<!--            text-align: center;-->
+<!--            border-radius: 10px 10px 0 0;-->
+<!--        }-->
+
+<!--        .header h1 {-->
+<!--            color: #fff;-->
+<!--            font-size: 24px;-->
+<!--            margin: 0;-->
+<!--        }-->
+
+<!--        .content {-->
+<!--            padding: 20px;-->
+<!--            font-size: 16px;-->
+<!--            line-height: 1.6;-->
+<!--        }-->
+
+<!--        .footer {-->
+<!--            background-color: #f1f1f1;-->
+<!--            padding: 10px;-->
+<!--            text-align: center;-->
+<!--            font-size: 12px;-->
+<!--            color: #777;-->
+<!--            border-radius: 0 0 10px 10px;-->
+<!--            margin-top: 30px;-->
+<!--        }-->
+
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        td {-->
+<!--            padding: 10px;-->
+<!--            border: 1px solid #ddd;-->
+<!--        }-->
+
+<!--        td:first-child {-->
+<!--            font-weight: bold;-->
+<!--            color: #555;-->
+<!--        }-->
+
+<!--        td:last-child {-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        .button-container {-->
+<!--            text-align: center;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        .button {-->
+<!--            display: inline-block;-->
+<!--            padding: 12px 25px;-->
+<!--            color: #fff;-->
+<!--            background-color: #4A90E2;-->
+<!--            text-decoration: none;-->
+<!--            border-radius: 5px;-->
+<!--            font-size: 16px;-->
+<!--            transition: background-color 0.3s;-->
+<!--            margin: 0 15px;-->
+<!--        }-->
+
+<!--        .button:hover {-->
+<!--            background-color: #357ab7;-->
+<!--        }-->
+
+<!--        .button.extend {-->
+<!--            background-color: #f39c12;-->
+<!--        }-->
+
+<!--        .button.extend:hover {-->
+<!--            background-color: #e67e22;-->
+<!--        }-->
+
+<!--        .calendly-link {-->
+<!--            color: #4A90E2;-->
+<!--            text-decoration: none;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        .calendly-link:hover {-->
+<!--            text-decoration: underline;-->
+<!--        }-->
+
+<!--        .footer p {-->
+<!--            margin: 0;-->
+<!--        }-->
+
+<!--        /* Media Queries for Responsiveness */-->
+<!--        @media screen and (max-width: 768px) {-->
+<!--            .email-container {-->
+<!--                width: 90%;-->
+<!--                padding: 15px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 20px;-->
+<!--            }-->
+
+<!--            .content {-->
+<!--                font-size: 14px;-->
+<!--            }-->
+
+<!--            .button {-->
+<!--                padding: 10px 20px;-->
+<!--                font-size: 14px;-->
+<!--                margin: 10px 5px;-->
+<!--            }-->
+
+<!--            table td {-->
+<!--                font-size: 14px;-->
+<!--                padding: 8px;-->
+<!--            }-->
+
+<!--            .button-container {-->
+<!--                display: block;-->
+<!--                text-align: center;-->
+<!--                margin-top: 20px;-->
+<!--            }-->
+
+<!--            .button {-->
+<!--                width: 100%;-->
+<!--                box-sizing: border-box;-->
+<!--                margin-bottom: 10px;-->
+<!--            }-->
+
+<!--            .footer {-->
+<!--                font-size: 10px;-->
+<!--                padding: 15px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        @media screen and (max-width: 480px) {-->
+<!--            .email-container {-->
+<!--                width: 100%;-->
+<!--                padding: 10px;-->
+<!--            }-->
+
+<!--            .header h1 {-->
+<!--                font-size: 18px;-->
+<!--            }-->
+
+<!--            .content {-->
+<!--                font-size: 13px;-->
+<!--            }-->
+
+<!--            .button {-->
+<!--                padding: 8px 15px;-->
+<!--                font-size: 13px;-->
+<!--            }-->
+
+<!--            table td {-->
+<!--                font-size: 12px;-->
+<!--                padding: 6px;-->
+<!--            }-->
+
+<!--            .button-container {-->
+<!--                margin-top: 15px;-->
+<!--            }-->
+
+<!--            .footer {-->
+<!--                font-size: 8px;-->
+<!--                padding: 10px;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="email-container">-->
+<!--    <div class="header">-->
+<!--        <h1>Regarding Meeting</h1>-->
+<!--    </div>-->
+<!--    <div class="content">-->
+<!--        <p>Dear <span th:text="${type}">[Recipient Type]</span>,</p>-->
+
+<!--        <p><strong>CFL Details:</strong></p>-->
+<!--        <table>-->
+<!--            <tr>-->
+<!--                <td>CFL Name:</td>-->
+<!--                <td><span th:text="${cflName}"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>CFL E-Mail-Id:</td>-->
+<!--                <td><span th:text="${cflEmail}"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Designation:</td>-->
+<!--                <td><span th:text="${cflDesignation}"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Department:</td>-->
+<!--                <td><span th:text="${cflDepartment}"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Location:</td>-->
+<!--                <td><span th:text="${cflLocation}"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Reporting Manager:</td>-->
+<!--                <td><span th:text="${reportingManager}"></span></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+
+<!--        <p><strong>Message:</strong> <span th:text="${body}">[Body Content]</span></p>-->
+
+<!--        <div class="button-container">-->
+<!--            <a th:href="@{'http://localhost:9048/cfl/manager/accept/' + ${cflEmail}}" class="button">Accept</a>-->
+<!--            <a th:href="@{'http://localhost:9048/cfl/manager/extend/' + ${cflEmail}}" class="button extend">Extend</a>-->
+<!--&lt;!&ndash;            <a th:href="@{'http://localhost:8080/cfl/manager/accept/' + ${cflEmail}}" class="button">Accept</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a th:href="@{'http://localhost:8080/cfl/manager/extend/' + ${cflEmail}}" class="button extend">Extend</a>&ndash;&gt;-->
+<!--        </div>-->
+
+<!--&lt;!&ndash;        <p><strong>Calendly Link to Schedule Event:</strong> <a th:href="${link}" class="calendly-link" th:text="${link}">[Calendly Link]</a></p>&ndash;&gt;-->
+
+<!--        <p>Thanks & Regards,</p>-->
+<!--        <p>Human Resource Department, <span th:text="${year}">[Year]</span></p>-->
+<!--    </div>-->
+<!--    <div class="footer">-->
+<!--        <p>&copy; <span th:text="${year}">2024</span> CMS. All rights reserved.</p>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Regarding Meeting</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f6f8fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            width: 80%;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #4A90E2;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .content {
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            border-radius: 0 0 10px 10px;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            color: #555;
+        }
+
+        td:last-child {
+            color: #333;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Inline Button Styling */
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            color: #fff;
+            background-color: #4A90E2;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin: 0 15px;
+        }
+
+        .button:hover {
+            background-color: #357ab7;
+        }
+
+        .button.extend {
+            background-color: #f39c12;
+        }
+
+        .button.extend:hover {
+            background-color: #e67e22;
+        }
+
+        .calendly-link {
+            color: #4A90E2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .calendly-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media screen and (max-width: 768px) {
+            .email-container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .content {
+                font-size: 14px;
+            }
+
+            .button {
+                padding: 10px 20px;
+                font-size: 14px;
+                margin: 10px 5px;
+            }
+
+            table td {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .button-container {
+                display: block;
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            .button {
+                width: 100%;
+                box-sizing: border-box;
+                margin-bottom: 10px;
+            }
+
+            .footer {
+                font-size: 10px;
+                padding: 15px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .email-container {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .content {
+                font-size: 13px;
+            }
+
+            .button {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+
+            table td {
+                font-size: 12px;
+                padding: 6px;
+            }
+
+            .button-container {
+                margin-top: 15px;
+            }
+
+            .footer {
+                font-size: 8px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Regarding Meeting</h1>
+        </div>
+        <div class="content">
+            <p>Dear <span th:text="${type}">[Recipient Type]</span>,</p>
+
+            <p><strong>CFL Details:</strong></p>
+            <table>
+                <tr>
+                    <td>CFL Name:</td>
+                    <td><span th:text="${cflName}"></span></td>
+                </tr>
+                <tr>
+                    <td>CFL E-Mail-Id:</td>
+                    <td><span th:text="${cflEmail}"></span></td>
+                </tr>
+                <tr>
+                    <td>Designation:</td>
+                    <td><span th:text="${cflDesignation}"></span></td>
+                </tr>
+                <tr>
+                    <td>Department:</td>
+                    <td><span th:text="${cflDepartment}"></span></td>
+                </tr>
+                <tr>
+                    <td>Location:</td>
+                    <td><span th:text="${cflLocation}"></span></td>
+                </tr>
+                <tr>
+                    <td>Reporting Manager:</td>
+                    <td><span th:text="${reportingManager}"></span></td>
+                </tr>
+            </table>
+
+            <p><strong>Message:</strong> <span th:text="${body}">[Body Content]</span></p>
+
+            <div class="button-container">
+                <!-- Accept Button with Inline Styles -->
+                <a th:href="@{'http://localhost:9048/cfl/manager/accept/' + ${cflEmail}}"
+                    style="background-color: #4A90E2; color: white; padding: 12px 25px; font-size: 16px; text-decoration: none; border-radius: 5px; margin: 0 15px; display: inline-block; text-align: center;">
+                    Accept
+                </a>
+
+                <!-- Extend Button with Inline Styles -->
+                <a th:href="@{'http://localhost:9048/cfl/manager/extend/' + ${cflEmail}}"
+                    style="background-color: #f39c12; color: white; padding: 12px 25px; font-size: 16px; text-decoration: none; border-radius: 5px; margin: 0 15px; display: inline-block; text-align: center;">
+                    Extend
+                </a>
+            </div>
+
+            <!--        <p><strong>Calendly Link to Schedule Event:</strong> <a th:href="${link}" class="calendly-link" th:text="${link}">[Calendly Link]</a></p>-->
+
+            <p>Thanks & Regards,</p>
+            <p>Human Resource Department, <span th:text="${year}">[Year]</span></p>
+        </div>
+        <div class="footer">
+            <p>&copy; <span th:text="${year}"></span> CMS. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

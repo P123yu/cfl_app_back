@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Regarding Confirmation Of Goal Setting Review Extension</title>
+    <style>
+        body {
+            background-color: #f4f4f4; /* Light background color for contrast */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .email-container {
+            background-color: #ffffff; /* White background for the email */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            max-width: 600px; /* Max width of the email */
+            margin: 20px auto; /* Centering the email container */
+            overflow: hidden; /* Preventing overflow from rounded corners */
+            padding: 20px;
+        }
+
+        .email-header {
+            background-color: blue; /* Green background */
+            padding: 20px;
+            text-align: center;
+            color: white;
+            border-radius: 8px 8px 0 0; /* Rounded top corners */
+        }
+
+        .email-header h2 {
+            margin: 0; /* Remove default margin */
+            font-weight: bold; /* Make header text bold */
+            font-size: 24px;
+        }
+
+        .email-body {
+            padding: 20px;
+            line-height: 1.5; /* Improved line spacing */
+        }
+
+        .email-body p {
+            margin: 10px 0; /* Margin between paragraphs */
+            font-size: 16px;
+        }
+
+        .email-footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #777777;
+            padding: 10px 0; /* Padding for footer */
+            border-top: 1px solid #e0e0e0; /* Subtle top border */
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            font-size: 16px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold; /* Make button text bold */
+            transition: background-color 0.3s; /* Transition effect for buttons */
+            text-align: center;
+        }
+
+        .btn-accept {
+            background-color: #4CAF50; /* Green */
+        }
+
+        .btn-extend {
+            background-color: #FF0000; /* Red */
+        }
+
+        .btn-accept:hover, .btn-extend:hover {
+            opacity: 0.9; /* Slightly fade buttons on hover */
+        }
+
+        a {
+            color: #4CAF50; /* Link color */
+            text-decoration: none;
+            font-weight: bold; /* Make links bold */
+        }
+
+        /* Media Query for smaller screens (Mobile devices) */
+        @media (max-width: 600px) {
+            .email-container {
+                padding: 15px; /* Adjust padding for mobile */
+                max-width: 100%; /* Ensure full width */
+            }
+
+            .email-header h2 {
+                font-size: 20px; /* Adjust header font size */
+            }
+
+            .email-body p {
+                font-size: 14px; /* Adjust paragraph font size for better readability */
+            }
+
+            .email-footer {
+                font-size: 10px; /* Smaller footer font on mobile */
+            }
+
+            .btn {
+                width: 100%; /* Full-width buttons on mobile */
+                margin: 5px 0; /* Reduced margin for buttons */
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="email-header">
+        <h2>Goal Setting Review Extension Confirmation</h2>
+    </div>
+    <div class="email-body">
+        <p>Dear Manager <strong><span th:text="${managerName}"></span></strong>,</p>
+        <p>We would like to inform you that the goal setting review extension for CFL <strong><span th:text="${cflName}"></span></strong> is confirmed, and the goal-setting review meeting is now scheduled for <strong><span th:text="${date}"></span></strong>.</p>
+        <p>Best Regards,<br/><strong>Human Resource Department</strong></p>
+    </div>
+    <div class="email-footer">
+        <p>&copy; CMS COMPUTERS. All rights reserved.</p>
+    </div>
+</div>
+</body>
+</html>

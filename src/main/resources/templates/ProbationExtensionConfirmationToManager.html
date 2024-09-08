@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Regarding Confirmation Of Probation Extension</title>
+    <style>
+        body {
+            background-color: #f8f8f8; /* Slightly lighter background color */
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        .email-container {
+            background-color: #ffffff; /* White background for the email */
+            border-radius: 10px; /* Slightly more rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow for depth */
+            max-width: 650px; /* Increased max width */
+            margin: 40px auto; /* Centered email with more space */
+            overflow: hidden; /* Preventing overflow from rounded corners */
+            padding: 20px;
+        }
+
+        .email-header {
+            background-color: blue; /* Green background */
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            border-radius: 10px 10px 0 0; /* Rounded top corners */
+        }
+
+        .email-header h2 {
+            margin: 0; /* Remove default margin */
+            font-size: 24px; /* Larger font size */
+            font-weight: bold;
+            letter-spacing: 1px; /* Slight letter-spacing for a modern look */
+        }
+
+        .email-body {
+            padding: 20px;
+            font-size: 16px;
+            color: #333333; /* Darker text color for readability */
+        }
+
+        .email-body p {
+            margin: 15px 0; /* Larger margin between paragraphs */
+        }
+
+        .email-footer {
+            text-align: center;
+            font-size: 14px;
+            color: #777777;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 15px 5px;
+            font-size: 16px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-accept {
+            background-color: #4CAF50; /* Green */
+        }
+
+        .btn-extend {
+            background-color: #FF0000; /* Red */
+        }
+
+        .btn-accept:hover, .btn-extend:hover {
+            opacity: 0.9; /* Slight fade effect */
+            transform: translateY(-2px); /* Subtle lift on hover */
+        }
+
+        a {
+            color: #4CAF50; /* Link color */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 90%; /* Reduced width for smaller screens */
+                padding: 15px;
+            }
+
+            .email-header h2 {
+                font-size: 20px; /* Smaller header font on small screens */
+            }
+
+            .btn {
+                width: 100%; /* Full-width buttons on small screens */
+                padding: 12px;
+            }
+
+            .email-body {
+                font-size: 14px; /* Slightly smaller text on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="email-header">
+        <h2>Regarding Confirmation Of Probation Extension</h2>
+    </div>
+    <div class="email-body">
+        <p>Dear <strong><span th:text="${managerName}"></span></strong>,</p>
+<!--        <p>We would like to inform you that probation extension for CFL <strong><span th:text="${cflName}"></span></strong> is confirmed and now the probation confirmation meeting is scheduled on <strong><span th:text="${date}"></span></strong>.</p>-->
+        <p>We are pleased to inform you that the probation extension for CFL <strong><span th:text="${cflName}"></span></strong> has been approved. The meeting to confirm the probation is now scheduled for <strong><span th:text="${date}"></span></strong>.</p>
+        <p>Best Regards,<br/><strong>Human Resource Department</strong></p>
+    </div>
+    <div class="email-footer">
+        <p>&copy; CMS COMPUTERS. All rights reserved.</p>
+    </div>
+</div>
+</body>
+</html>
