@@ -1681,7 +1681,7 @@ public class CflServiceImpl implements CflService {
 
             Mentor mentor=mentorRepository.findByMentorId(Long.valueOf(newValueForChange));
             if(mentor != null){
-                cfl.setManagerId(Long.valueOf(newValueForChange));
+                cfl.setMentorId(Long.valueOf(newValueForChange));
                 // pull all details of new mentor details from the cfl table
                 cfl.setMentorDepartment(mentor.getMentorDepartment());
                 cfl.setMentorDesignation(mentor.getMentorDesignation());
