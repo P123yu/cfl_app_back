@@ -40,6 +40,29 @@ public class NeuronServiceImpl implements NeuronService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private String cmsKnowledgeCache = null;
+
+    private synchronized String getSystemContext() {
+        if (cmsKnowledgeCache == null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("You are CFL Neuron, a helpful AI assistant for the CMS Future Leaders (CFL) program run by CMS (Computer Management System) Computers (https://www.cms.co.in/).\n\n");
+            try (java.io.InputStream is = getClass().getClassLoader().getResourceAsStream("cms_knowledge.txt")) {
+                if (is != null) {
+                    try (java.util.Scanner scanner = new java.util.Scanner(is, java.nio.charset.StandardCharsets.UTF_8.name())) {
+                        sb.append(scanner.useDelimiter("\\A").next());
+                    }
+                } else {
+                    sb.append("CMS is Computer Management System Computers (https://www.cms.co.in/). CFL is CMS Future Leaders.");
+                }
+            } catch (Exception e) {
+                log.error("Failed to load cms_knowledge.txt", e);
+                sb.append("CMS is Computer Management System Computers (https://www.cms.co.in/). CFL is CMS Future Leaders.");
+            }
+            cmsKnowledgeCache = sb.toString() + "\n\n";
+        }
+        return cmsKnowledgeCache;
+    }
+
     @Override
     public NeuronResponse askQuestion(String question) {
         log.info("Received question: {}", question);
@@ -52,6 +75,7 @@ public class NeuronServiceImpl implements NeuronService {
 
         // 2. Ask LLM to generate SQL or decide if NO_SQL
         String sqlGenerationPrompt = String.format(
+            getSystemContext() +
             "You are a database query assistant. Given the PostgreSQL database schema below and the user's natural language question:\n" +
             "1. Decide if the question can/should be answered by querying the database tables.\n" +
             "2. If yes, write a read-only PostgreSQL SELECT query to fetch the necessary data. Return ONLY the raw SQL query. Do not wrap in markdown or backticks or anything. No comments.\n" +
@@ -70,10 +94,12 @@ public class NeuronServiceImpl implements NeuronService {
             llmSqlOutput = llmSqlOutput.replaceAll("```sql|```", "").trim();
         }
 
-        if (llmSqlOutput.equalsIgnoreCase("NO_SQL") || llmSqlOutput.isEmpty()) {
+        String checkSql = llmSqlOutput.toLowerCase().trim();
+        boolean isQuery = checkSql.startsWith("select") || checkSql.startsWith("with");
+        if (checkSql.contains("no_sql") || checkSql.isEmpty() || !isQuery) {
             // General query - no database fetch
             String generalPrompt = String.format(
-                "You are CFL Neuron, a helpful AI assistant for the Career Foundation Program / Future Leaders (CFL) system.\n" +
+                getSystemContext() +
                 "Answer the following user question/request in a friendly and professional manner:\n\n%s",
                 question
             );
@@ -97,7 +123,8 @@ public class NeuronServiceImpl implements NeuronService {
             log.error("Error executing query: " + sqlQuery, e);
             // Try to fallback to general LLM processing or let LLM explain the failure
             String errorPrompt = String.format(
-                "You are CFL Neuron. We tried to answer the user's question by running a database query, but it failed with an error.\n" +
+                getSystemContext() +
+                "We tried to answer the user's question by running a database query, but it failed with an error.\n" +
                 "User Question: %s\n" +
                 "Attempted SQL: %s\n" +
                 "Error details: %s\n\n" +
@@ -111,14 +138,14 @@ public class NeuronServiceImpl implements NeuronService {
         // Convert query results to string representation
         String resultsString;
         try {
-            resultsString = objectMapper.writeValueAsString(queryResults);
+            resultsString = objectMapper.writeValueAsString(sanitizeQueryResults(queryResults));
         } catch (Exception e) {
-            resultsString = queryResults.toString();
+            resultsString = sanitizeQueryResults(queryResults).toString();
         }
 
         // Ask LLM to synthesize final natural language answer based on query results
         String answerPrompt = String.format(
-            "You are CFL Neuron, a helpful AI assistant for the Career Foundation Program / Future Leaders (CFL) system.\n" +
+            getSystemContext() +
             "Based on the database query results below, answer the user's question accurately.\n\n" +
             "User Question: %s\n" +
             "SQL Query Executed: %s\n" +
@@ -141,15 +168,16 @@ public class NeuronServiceImpl implements NeuronService {
                     if (tableName.startsWith("pg_") || tableName.equals("flyway_schema_history")) {
                         continue;
                     }
-                    schema.append("- Table: ").append(tableName).append("\n  Columns:\n");
+                    schema.append("- ").append(tableName).append(": ");
+                    List<String> colDetails = new ArrayList<>();
                     try (ResultSet columns = metaData.getColumns(conn.getCatalog(), "public", tableName, "%")) {
                         while (columns.next()) {
                             String columnName = columns.getString("COLUMN_NAME");
                             String typeName = columns.getString("TYPE_NAME");
-                            schema.append("    * ").append(columnName).append(" (").append(typeName).append(")\n");
+                            colDetails.add(columnName + " (" + typeName + ")");
                         }
                     }
-                    schema.append("\n");
+                    schema.append(String.join(", ", colDetails)).append("\n");
                 }
             }
         } catch (Exception e) {
@@ -180,6 +208,29 @@ public class NeuronServiceImpl implements NeuronService {
         return true;
     }
 
+    private List<Map<String, Object>> sanitizeQueryResults(List<Map<String, Object>> results) {
+        if (results == null) {
+            return null;
+        }
+        List<Map<String, Object>> sanitizedList = new ArrayList<>();
+        for (Map<String, Object> row : results) {
+            Map<String, Object> sanitizedRow = new LinkedHashMap<>();
+            for (Map.Entry<String, Object> entry : row.entrySet()) {
+                Object value = entry.getValue();
+                if (value instanceof byte[]) {
+                    byte[] bytes = (byte[]) value;
+                    sanitizedRow.put(entry.getKey(), "[Binary Data: " + bytes.length + " bytes]");
+                } else if (value != null && value.getClass().isArray()) {
+                    sanitizedRow.put(entry.getKey(), "[Array Data]");
+                } else {
+                    sanitizedRow.put(entry.getKey(), value);
+                }
+            }
+            sanitizedList.add(sanitizedRow);
+        }
+        return sanitizedList;
+    }
+
     private String callGemini(String prompt) {
         try {
             RestTemplate restTemplate = new RestTemplate();
@@ -191,6 +242,7 @@ public class NeuronServiceImpl implements NeuronService {
             Map<String, Object> requestBody = new HashMap<>();
             requestBody.put("model", geminiModel);
             requestBody.put("messages", Collections.singletonList(message));
+            requestBody.put("max_tokens", 2048);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -216,6 +268,19 @@ public class NeuronServiceImpl implements NeuronService {
                     }
                 }
             }
+        } catch (org.springframework.web.client.HttpStatusCodeException e) {
+            log.error("HTTP error calling Groq API", e);
+            String responseBody = e.getResponseBodyAsString();
+            String fullMessage = responseBody + " " + e.getMessage();
+            if (e.getStatusCode().value() == 429 || fullMessage.contains("rate_limit_exceeded")) {
+                java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("Please try again in ([0-9\\.]+[a-zA-Z]*)");
+                java.util.regex.Matcher matcher = pattern.matcher(fullMessage);
+                if (matcher.find()) {
+                    return "Rate limit reached. Please wait for " + matcher.group(1) + ".";
+                }
+                return "Rate limit reached. Please try again in a few seconds.";
+            }
+            return "Error calling Groq: " + e.getMessage();
         } catch (Exception e) {
             log.error("Error calling Groq API", e);
             return "Error calling Groq: " + e.getMessage();

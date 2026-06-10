@@ -1,0 +1,41 @@
+CMS Computers (Computer Management System) Knowledge Base
+=========================================================
+
+Company Information:
+- CMS stands for Computer Management System (officially CMS Computers Limited).
+- Website: https://www.cms.co.in/
+- Year of Foundation: Founded in 1976 by the late Ramesh Grover (Raju Ramesh Grover).
+- Managing Director: Aarti Grover.
+- CEO: Anil Menon.
+- Headquarters: Bhandup (West), Mumbai, Maharashtra, India.
+- Number of Employees: Over 4,000 employees.
+- Presence: Operates across more than 100 locations in India.
+- Main Business Divisions & Solutions:
+  1. e-Governance Solutions: Services providing direct citizens access to government services (e.g. Bangalore One).
+  2. Energy Management Solutions: Specialized automated metering and ABT/EMS projects for utilities and power stations (e.g. Neyveli Lignite, Lanco Anpara).
+  3. Media & Broadcasting Solutions.
+  4. Surveillance & Workforce Solutions.
+  5. Transportation & Traffic Solutions: Automated toll management, traffic control systems.
+  6. Systems Integration & Software Services.
+  7. Cloud Solutions (AWS).
+
+CMS Future Leaders (CFL) Program:
+- CFL stands for CMS Future Leaders.
+- It is a leadership program within CMS designed to nurture and train future leaders from new graduates, students, and young professionals.
+- Key modules include mentorship, goal setting, technical & non-technical skill training, quarterly evaluations, and probation tracking.
+
+CMS Digital Lounge Portal:
+- Website: https://cdl.cms.co.in/
+- This is the internal portal for CMS employees.
+- Portals and sections include:
+  1. Events@CMS: Sports, health, community drives (e.g., cycling drives in Mumbai/Bangalore), and tax savings.
+  2. Watsup@CMS: Employee announcements, technical trainings, robust engineering and DevOps best practices.
+  3. Employee Self Services: Profile edit, Employee search, Mediclaim enrollment, eLMS (Learning Management System), ePMS (Performance Management System), ERF (Employee Requisition Form).
+  4. Engagement: Birthday wishes, opinion polls, quiz tests.
+  5. Feedback/Support: We Care, IT Help Desk, and direct communication to the CEO ("Talk to CEO").
+
+Social Media Handles:
+- Facebook: https://www.facebook.com/cmscomputerslimited/
+- Twitter/X: https://x.com/cmscomputersIND
+- LinkedIn: https://www.linkedin.com/company/cms-computers-limited-india-/
+- YouTube: https://www.youtube.com/user/cmscomputers2014
