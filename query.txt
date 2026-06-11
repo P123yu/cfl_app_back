@@ -1,0 +1,35 @@
+
+
+-- register_user table
+INSERT INTO public.register_user
+(
+    user_id,
+    role,
+    status,
+    user_name,
+    user_password
+)
+VALUES
+(
+    1,
+    'HR',
+    true,
+    'piyush_kumar@cms.co.in',
+    '$2a$12$Q77rzk/mQ4AIea9P2A2NpOKgd.tvsFdAXlG/60gHGkwhGi./HYwrS'
+);
+
+-- refresh table
+INSERT INTO public.refresh
+(
+    token_id,
+    expiry,
+    refresh_token,
+    user_id
+)
+VALUES
+(
+    1, -- next token_id
+    TIMESTAMPTZ '2027-01-20 18:36:40+05:30',
+    '96fbdda4-5fd4-49c8-b2fe-54f447a25e5',
+    1
+);
