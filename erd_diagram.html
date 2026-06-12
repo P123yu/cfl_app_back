@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CFL Backend - ERD Diagram</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f172a;color:#e2e8f0;font-family:'Segoe UI',sans-serif;min-height:100vh}
+.header{background:linear-gradient(135deg,#1e293b,#334155);padding:24px 40px;border-bottom:2px solid #3b82f6;text-align:center}
+.header h1{font-size:28px;background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.header p{color:#94a3b8;font-size:14px}
+.stats{display:flex;gap:16px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.stat{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:8px 20px;font-size:13px}
+.stat b{color:#60a5fa}
+.controls{padding:12px 40px;background:#1e293b;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap}
+.controls button{background:#334155;color:#e2e8f0;border:1px solid #475569;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;transition:all .2s}
+.controls button:hover{background:#3b82f6;border-color:#3b82f6}
+.legend{display:flex;gap:20px;font-size:12px;color:#94a3b8;align-items:center}
+.legend span{display:flex;align-items:center;gap:4px}
+.legend .dot{width:12px;height:3px;border-radius:2px}
+.dot.jpa{background:#22c55e}.dot.biz{background:#f59e0b}.dot.fb{background:#ec4899}
+#diagram{width:100%;overflow:auto;padding:20px;background:#0f172a}
+.mermaid{display:flex;justify-content:center}
+.rel-table{max-width:1200px;margin:30px auto;padding:0 20px}
+.rel-table h2{color:#60a5fa;margin-bottom:16px;font-size:20px;text-align:center}
+.rel-table table{width:100%;border-collapse:collapse;font-size:13px}
+.rel-table th{background:#1e293b;color:#60a5fa;padding:10px 12px;text-align:left;border:1px solid #334155;position:sticky;top:0}
+.rel-table td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+.rel-table tr:nth-child(even){background:#1e293b}
+.rel-table tr:hover{background:#334155}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.tag.jpa{background:#166534;color:#86efac}.tag.biz{background:#78350f;color:#fcd34d}.tag.standalone{background:#581c87;color:#d8b4fe}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>CFL Backend — Entity Relationship Diagram</h1>
+<p>Complete database schema with all tables and their connections</p>
+<div class="stats">
+<div class="stat"><b>33</b> Database Tables</div>
+<div class="stat"><b>29</b> Relationships</div>
+<div class="stat"><b>1</b> JPA FK (Register↔Refresh)</div>
+<div class="stat"><b>28</b> Business-Logic Links</div>
+<div class="stat"><b>4</b> Standalone Tables</div>
+</div>
+</div>
+<div class="controls">
+<button onclick="zoomIn()">🔍 Zoom In</button>
+<button onclick="zoomOut()">🔍 Zoom Out</button>
+<button onclick="resetZoom()">↺ Reset</button>
+<div class="legend">
+<span><span class="dot jpa"></span> JPA FK</span>
+<span><span class="dot biz"></span> Business Logic</span>
+</div>
+</div>
+<div id="diagram">
+<pre class="mermaid">
+erDiagram
+
+    register_user {
+        Long userId PK
+        String userName
+        String userPassword
+        boolean status
+        Role role
+    }
+
+    refresh {
+        Long tokenId PK
+        String refreshToken
+        Instant expiry
+        Long user_id FK
+    }
+
+    cfl_table {
+        Long id PK
+        Long empId UK
+        String cflFirstName
+        String cflLastName
+        String cflEmail
+        String joiningDate
+        String cflDesignation
+        String cflDepartment
+        String cflProject
+        String mentorName
+        String mentorEmail
+        String reportingManager
+        String reportingManagerMail
+        Long hrId
+        String hrName
+        String hrMail
+        Boolean probationStatus
+        Boolean goalSettingStatusHrToMgr
+        String year
+        String otp
+    }
+
+    mentor_table {
+        Long id PK
+        Long mentorId
+        String mentorName
+        String mentorEmail UK
+        String mentorDepartment
+        String mentorLocation
+        String mentorDesignation
+        byte mentorFileData
+        String otp
+    }
+
+    manager_table {
+        Long id PK
+        Long managerId
+        String managerName
+        String managerEmail UK
+        String managerDepartment
+        String managerLocation
+        String managerDesignation
+        byte managerFileData
+        String otp
+    }
+
+    hr_table {
+        Long id PK
+        Long hrId
+        String hrName
+        String hrEmail UK
+        String hrLocation
+        byte hrFileData
+        String otp
+    }
+
+    exit_table {
+        Long id PK
+        Long empId FK
+        String cflFirstName
+        String cflEmail
+        String exitDate
+        String relievingDate
+        String comments
+        String status
+        String acceptStatus
+    }
+
+    probation_confirmation {
+        Long id PK
+        Long employeeCode FK
+        String designation
+        String dateOfConfirmation
+        String dropdown1_to_20
+        String confirmation
+        String status
+        Long year
+    }
+
+    certification_table {
+        Long Id PK
+        Long empId FK
+        LocalDate date
+        String certificateFileName
+        byte certificateFileData
+    }
+
+    logbook_table {
+        Long Id PK
+        Long empId FK
+        LocalDate date
+        String logBookFileName
+        byte logBookFileData
+    }
+
+    resume_table {
+        Long Id PK
+        Long empId FK
+        LocalDate date
+        String resumeFileName
+        byte resumeFileData
+    }
+
+    goal_setting_tracker {
+        Long id PK
+        Long cflId FK
+        Boolean goalInitiatedFromHrToManager
+        Boolean responseSendByManagerToCfl
+        Boolean responseSendByManagerToHr
+        String quarter
+        Long year
+    }
+
+    probation_tracker {
+        Long id PK
+        Long cflId FK
+        Boolean probationInitiatedFromHrToMgr
+        Boolean responseSendByManagerToCfl
+        Boolean responseSendByManagerToHr
+    }
+
+    thirty_days_goals {
+        Long Id PK
+        Long empId FK
+        String goal
+        String deliverable
+        String status
+        String weightage
+        String quarter
+        Long year
+    }
+
+    sixty_days_goals {
+        Long Id PK
+        Long empId FK
+        String goal
+        String deliverable
+        String status
+        String weightage
+        String quarter
+        Long year
+    }
+
+    ninety_days_goals {
+        Long Id PK
+        Long empId FK
+        String goal
+        String deliverable
+        String status
+        String weightage
+        String quarter
+        Long year
+    }
+
+    cfl_skill {
+        Long id PK
+        Long empId FK
+        String primarySkills
+        String secondarySkills
+        String otherSkills
+        String quarter
+        Long year
+    }
+
+    question_radio {
+        Long id PK
+        Long empId FK
+        String question1_to_5
+        String quarter
+        Long year
+    }
+
+    manager_rating {
+        Long Id PK
+        Long empId FK
+        String talentLevel
+        String potentialLevel
+        String performanceLevel
+        String annual
+        Long year
+    }
+
+    manager_rating_qna {
+        Long id PK
+        Long empId FK
+        String questionAnswerText1_to_5
+        String annual
+    }
+
+    mentee_to_mentor_feedback {
+        Long Id PK
+        Long menteeId FK
+        String feedbackMessage
+        LocalDate feedbackDate
+        Long year
+    }
+
+    mentor_to_mentee_feedback {
+        Long Id PK
+        Long menteeId FK
+        String menteeName
+        String mentorName
+        String mentorEmail FK
+        String feedbackMessage
+        LocalDate feedbackDate
+        Long year
+    }
+
+    manager_to_cfl_feedback {
+        Long Id PK
+        Long menteeId FK
+        String menteeName
+        String managerName
+        String managerEmail FK
+        String feedbackMessage
+        LocalDate feedbackDate
+        Long year
+    }
+
+    quiz_test {
+        Long id PK
+        String question
+        String option1_to_4
+        String answer
+        String topic
+        String fromDate
+        String toDate
+        String examDuration
+    }
+
+    quiz_result {
+        Long id PK
+        Long cflId FK
+        String name
+        Long score
+        String topic FK
+    }
+
+    cfl_roles {
+        Long id PK
+        String roleName
+        Long year
+    }
+
+    rewards_and_recognition {
+        Long id PK
+        String rewardsPersonName
+        String messagedPersonName
+        String message
+        byte rewardImage
+        LocalDate date
+        String rewardRecognitionType
+    }
+
+    cfl_memories {
+        Long id PK
+        String fileName
+        byte fileData
+        Long year
+    }
+
+    video_table {
+        Long videoId PK
+        String videoLink
+        String year
+    }
+
+    lateral_shift {
+        Long Id PK
+        Long empId FK
+        String internal1_to_3
+        String project1_to_3
+        String skillGap
+        String backUp
+        Long year
+    }
+
+    mail_history {
+        Long id PK
+        Long empId FK
+        LocalDate mailDate
+        LocalTime mailTime
+    }
+
+    annual_appraisal_info {
+        Long id PK
+        Long empId FK
+        String empName
+        Long year
+    }
+
+    user_manual_table {
+        Long Id PK
+        String userManualFileName
+        byte userManualFileData
+    }
+
+    register_user ||--o| refresh : "OneToOne JPA"
+
+    cfl_table }o--|| mentor_table : "mentorEmail"
+    cfl_table }o--|| manager_table : "managerEmail"
+    cfl_table }o--|| hr_table : "hrMail"
+
+    cfl_table ||--o{ certification_table : "empId"
+    cfl_table ||--o{ logbook_table : "empId"
+    cfl_table ||--o{ resume_table : "empId"
+    cfl_table ||--o{ thirty_days_goals : "empId"
+    cfl_table ||--o{ sixty_days_goals : "empId"
+    cfl_table ||--o{ ninety_days_goals : "empId"
+    cfl_table ||--o{ cfl_skill : "empId"
+    cfl_table ||--o{ question_radio : "empId"
+    cfl_table ||--o{ manager_rating : "empId"
+    cfl_table ||--o{ manager_rating_qna : "empId"
+    cfl_table ||--o{ lateral_shift : "empId"
+    cfl_table ||--o{ mail_history : "empId"
+    cfl_table ||--o{ annual_appraisal_info : "empId"
+    cfl_table ||--o| exit_table : "empId"
+    cfl_table ||--o| probation_confirmation : "employeeCode"
+    cfl_table ||--o{ goal_setting_tracker : "cflId"
+    cfl_table ||--o| probation_tracker : "cflId"
+
+    cfl_table ||--o{ mentee_to_mentor_feedback : "menteeId"
+    cfl_table ||--o{ mentor_to_mentee_feedback : "menteeId"
+    cfl_table ||--o{ manager_to_cfl_feedback : "menteeId"
+    mentor_table ||--o{ mentor_to_mentee_feedback : "mentorEmail"
+    manager_table ||--o{ manager_to_cfl_feedback : "managerEmail"
+
+    cfl_table ||--o{ quiz_result : "cflId"
+    quiz_test ||--o{ quiz_result : "topic"
+    cfl_table ||--o{ rewards_and_recognition : "empId"
+</pre>
+</div>
+
+<div class="rel-table">
+<h2>📋 All 29 Relationships</h2>
+<table>
+<thead><tr><th>#</th><th>From</th><th>To</th><th>Link Column</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>register_user</td><td>refresh</td><td>user_id</td><td><span class="tag jpa">JPA FK</span></td><td>Auth token storage, OneToOne</td></tr>
+<tr><td>2</td><td>cfl_table</td><td>mentor_table</td><td>mentorEmail</td><td><span class="tag biz">Business</span></td><td>Mentor auto-created with CFL</td></tr>
+<tr><td>3</td><td>cfl_table</td><td>manager_table</td><td>managerEmail</td><td><span class="tag biz">Business</span></td><td>Manager auto-created with CFL</td></tr>
+<tr><td>4</td><td>cfl_table</td><td>hr_table</td><td>hrMail</td><td><span class="tag biz">Business</span></td><td>HR auto-created with CFL</td></tr>
+<tr><td>5</td><td>cfl_table</td><td>certification_table</td><td>empId</td><td><span class="tag biz">Business</span></td><td>CFL uploads certificates</td></tr>
+<tr><td>6</td><td>cfl_table</td><td>logbook_table</td><td>empId</td><td><span class="tag biz">Business</span></td><td>CFL uploads logbooks</td></tr>
+<tr><td>7</td><td>cfl_table</td><td>resume_table</td><td>empId</td><td><span class="tag biz">Business</span></td><td>CFL uploads resumes</td></tr>
+<tr><td>8</td><td>cfl_table</td><td>thirty_days_goals</td><td>empId</td><td><span class="tag biz">Business</span></td><td>30-day goal setting</td></tr>
+<tr><td>9</td><td>cfl_table</td><td>sixty_days_goals</td><td>empId</td><td><span class="tag biz">Business</span></td><td>60-day goal setting</td></tr>
+<tr><td>10</td><td>cfl_table</td><td>ninety_days_goals</td><td>empId</td><td><span class="tag biz">Business</span></td><td>90-day goal setting</td></tr>
+<tr><td>11</td><td>cfl_table</td><td>cfl_skill</td><td>empId</td><td><span class="tag biz">Business</span></td><td>Skills per quarter</td></tr>
+<tr><td>12</td><td>cfl_table</td><td>question_radio</td><td>empId</td><td><span class="tag biz">Business</span></td><td>Annual appraisal Q&A</td></tr>
+<tr><td>13</td><td>cfl_table</td><td>manager_rating</td><td>empId</td><td><span class="tag biz">Business</span></td><td>9-box talent rating</td></tr>
+<tr><td>14</td><td>cfl_table</td><td>manager_rating_qna</td><td>empId</td><td><span class="tag biz">Business</span></td><td>Annual rating Q&A</td></tr>
+<tr><td>15</td><td>cfl_table</td><td>lateral_shift</td><td>empId</td><td><span class="tag biz">Business</span></td><td>Internal movement tracking</td></tr>
+<tr><td>16</td><td>cfl_table</td><td>mail_history</td><td>empId</td><td><span class="tag biz">Business</span></td><td>Email audit trail</td></tr>
+<tr><td>17</td><td>cfl_table</td><td>annual_appraisal_info</td><td>empId</td><td><span class="tag biz">Business</span></td><td>Annual appraisal records</td></tr>
+<tr><td>18</td><td>cfl_table</td><td>exit_table</td><td>empId</td><td><span class="tag biz">Business</span></td><td>Exit/resignation management</td></tr>
+<tr><td>19</td><td>cfl_table</td><td>probation_confirmation</td><td>employeeCode</td><td><span class="tag biz">Business</span></td><td>Probation evaluation form</td></tr>
+<tr><td>20</td><td>cfl_table</td><td>goal_setting_tracker</td><td>cflId</td><td><span class="tag biz">Business</span></td><td>Goal workflow tracker</td></tr>
+<tr><td>21</td><td>cfl_table</td><td>probation_tracker</td><td>cflId</td><td><span class="tag biz">Business</span></td><td>Probation workflow tracker</td></tr>
+<tr><td>22</td><td>cfl_table</td><td>mentee_to_mentor_feedback</td><td>menteeId</td><td><span class="tag biz">Business</span></td><td>CFL → Mentor feedback</td></tr>
+<tr><td>23</td><td>cfl_table</td><td>mentor_to_mentee_feedback</td><td>menteeId</td><td><span class="tag biz">Business</span></td><td>Mentor → CFL feedback</td></tr>
+<tr><td>24</td><td>cfl_table</td><td>manager_to_cfl_feedback</td><td>menteeId</td><td><span class="tag biz">Business</span></td><td>Manager → CFL feedback</td></tr>
+<tr><td>25</td><td>mentor_table</td><td>mentor_to_mentee_feedback</td><td>mentorEmail</td><td><span class="tag biz">Business</span></td><td>Mentor identified by email</td></tr>
+<tr><td>26</td><td>manager_table</td><td>manager_to_cfl_feedback</td><td>managerEmail</td><td><span class="tag biz">Business</span></td><td>Manager identified by email</td></tr>
+<tr><td>27</td><td>cfl_table</td><td>quiz_result</td><td>cflId</td><td><span class="tag biz">Business</span></td><td>Quiz scores</td></tr>
+<tr><td>28</td><td>quiz_test</td><td>quiz_result</td><td>topic</td><td><span class="tag biz">Business</span></td><td>Questions linked to results</td></tr>
+<tr><td>29</td><td>cfl_table</td><td>rewards_and_recognition</td><td>empId</td><td><span class="tag biz">Business</span></td><td>Rewards & bravo cards</td></tr>
+</tbody>
+</table>
+
+<h2 style="margin-top:30px">📦 Standalone Tables (No FK Connections)</h2>
+<table>
+<thead><tr><th>Table</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>cfl_roles</td><td>CFL role definitions per year</td></tr>
+<tr><td>cfl_memories</td><td>Photo gallery uploads per year</td></tr>
+<tr><td>video_table</td><td>Training video links per year</td></tr>
+<tr><td>user_manual_table</td><td>User manual PDF file storage</td></tr>
+</tbody>
+</table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({theme:'dark',er:{useMaxWidth:false,fontSize:11},themeVariables:{primaryColor:'#1e293b',primaryBorderColor:'#3b82f6',lineColor:'#60a5fa',textColor:'#e2e8f0'}});
+let z=1;
+function zoomIn(){z=Math.min(z+0.2,3);document.querySelector('.mermaid svg').style.transform=`scale(${z})`}
+function zoomOut(){z=Math.max(z-0.2,0.3);document.querySelector('.mermaid svg').style.transform=`scale(${z})`}
+function resetZoom(){z=1;document.querySelector('.mermaid svg').style.transform=`scale(1)`}
+</script>
+</body>
+</html>
