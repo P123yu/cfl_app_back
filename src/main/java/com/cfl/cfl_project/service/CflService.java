@@ -41,6 +41,7 @@ public interface CflService {
 
     boolean getByCflEmail(String cflEmail,String type);
     boolean getByCflEmail(String cflEmail,String type, String date, String time);
+    boolean getByCflEmail(String cflEmail,String type, String date, String time, String seniorEmail);
 
     Cfl getByCflInfoByCflEmail(String cflEmail);
 

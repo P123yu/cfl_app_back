@@ -373,6 +373,11 @@ public class CflServiceImpl implements CflService {
 
     @Override
     public boolean getByCflEmail(String cflEmail,String type, String date, String time) {
+        return getByCflEmail(cflEmail, type, date, time, null);
+    }
+
+    @Override
+    public boolean getByCflEmail(String cflEmail,String type, String date, String time, String seniorEmail) {
 
         // Retrieve the Cfl entity based on the email
         Cfl cfl = cflRepository.findByCflEmail(cflEmail);
@@ -389,7 +394,7 @@ public class CflServiceImpl implements CflService {
                         "Time: " + (time != null ? time : "N/A") + "<br/>" +
                         "Google Meet Link: <a href=\"" + meetLink + "\">" + meetLink + "</a>";
                 String hrName=cfl.getHrName();
-                String hrEmail=cfl.getHrMail();
+                String hrEmail = (seniorEmail != null && !seniorEmail.trim().isEmpty()) ? seniorEmail : cfl.getHrMail();
                 cflToMentorMail.sendMailFromHRToCFL(cflEmail,hrName,cflName,subject,message);
                 cflToMentorMail.sendMailFromHRToCFL(hrEmail,hrName,hrName,subject,message.replace("your hr "+cfl.getHrName(), "you"));
                 return true;
@@ -404,7 +409,7 @@ public class CflServiceImpl implements CflService {
                         "Time: " + (time != null ? time : "N/A") + "<br/>" +
                         "Google Meet Link: <a href=\"" + meetLink + "\">" + meetLink + "</a>";
                 String managerName=cfl.getReportingManager();
-                String managerEmail=cfl.getReportingManagerMail();
+                String managerEmail = (seniorEmail != null && !seniorEmail.trim().isEmpty()) ? seniorEmail : cfl.getReportingManagerMail();
                 cflToMentorMail.sendMailFromManagerToCFL(cflEmail,managerName,cflName,subject,message);
                 cflToMentorMail.sendMailFromManagerToCFL(managerEmail,managerName,managerName,subject,message.replace("your manager "+cfl.getReportingManager(), "you"));
                 return true;
@@ -434,7 +439,7 @@ public class CflServiceImpl implements CflService {
             String status="accept";
 
             String mentorName=cfl.getMentorName();
-            String mentorEmail=cfl.getMentorEmail();
+            String mentorEmail = (seniorEmail != null && !seniorEmail.trim().isEmpty()) ? seniorEmail : cfl.getMentorEmail();
             cflToMentorMail.sendMailFromMentorToMentee(cflEmail,mentorName,cflName,subject,message,status);
             cflToMentorMail.sendMailFromMentorToMentee(mentorEmail,mentorName,mentorName,subject,message.replace("your mentor "+cfl.getMentorName(), "you"),status);
             cflRepository.save(cfl);

@@ -608,7 +608,7 @@
 
             <!-- Centered Accept and Extend Buttons with Inline Styles -->
             <div class="button-container">
-                <a th:href="@{'http://localhost:9048/cfl/accept/' + ${cflEmail} + '/' + ${type} + '?date=' + ${meetingDate} + '&amp;time=' + ${meetingTime}}"
+                <a th:href="@{'http://localhost:9048/cfl/accept/' + ${cflEmail} + '/' + ${type} + '?date=' + ${meetingDate} + '&amp;time=' + ${meetingTime} + '&amp;seniorEmail=' + ${seniorEmail}}"
                     style="display: inline-block; padding: 12px 24px; color: #007BFF; background-color: white; text-decoration: none; border: 2px solid #007BFF; border-radius: 5px; font-size: 16px; margin: 0 10px; text-align: center;">
                     Accept
                 </a>

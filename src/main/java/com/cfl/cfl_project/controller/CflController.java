@@ -195,9 +195,10 @@ public class CflController {
             @PathVariable String cflEmail,
             @PathVariable String type,
             @RequestParam(required = false) String date,
-            @RequestParam(required = false) String time) {
+            @RequestParam(required = false) String time,
+            @RequestParam(required = false) String seniorEmail) {
 
-        boolean result=cflService.getByCflEmail(cflEmail, type, date, time);
+        boolean result=cflService.getByCflEmail(cflEmail, type, date, time, seniorEmail);
         if(result){
             return ResponseEntity.ok("<!DOCTYPE html>\n" +
                     "<html>\n" +

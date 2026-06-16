@@ -93,6 +93,7 @@ public class CflToMentorMail {
         context.setVariable("mentorName", mentorName);
         context.setVariable("meetingDate", meetingDate);
         context.setVariable("meetingTime", meetingTime);
+        context.setVariable("seniorEmail", email);
 
         context.setVariable("type", type);
         LocalDate date=LocalDate.now();
